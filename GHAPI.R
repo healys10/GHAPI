@@ -38,9 +38,14 @@ gitDF[gitDF$full_name == "jtleek/datasharing", "created_at"]
 # -----------------------------------------------------------------------------------
 # Interrogate the Github API. R will return the number of followers and public repositories
 # in my GitHub account
-#Basic
+#Basic details
 myData = fromJSON("https://api.github.com/users/healys10")
 myData$followers
 myData$following
 myData$public_repos
 
+#followers
+myFollowers = fromJSON("https://api.github.com/users/healys10/followers")
+myFollowers$login  #user names of followers
+length = length(myFollowers$login)
+length #Number of followers
