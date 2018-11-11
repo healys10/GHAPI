@@ -42,6 +42,14 @@ gitDF[gitDF$full_name == "jtleek/datasharing", "created_at"]
 myData = fromJSON("https://api.github.com/users/healys10")
 myData$followers
 myData$following
+myData$id
+myData$bio
+myData$company
+myData$gists_url
+myData$email
+myData$type
+myData$site_admin
+myData$public_gists
 myData$public_repos
 
 #followers
@@ -49,3 +57,10 @@ myFollowers = fromJSON("https://api.github.com/users/healys10/followers")
 myFollowers$login  #user names of followers
 length = length(myFollowers$login)
 length #Number of followers
+
+#repos
+repos <- fromJSON("https://api.github.com/users/healys10/repos")
+repos$name #names your public repositories
+repos$created_at # when repos were created
+ass1 <- fromJSON("https://api.github.com/repos/healys10/ass1/commits")
+ass1$commit$message #shows commit messages
