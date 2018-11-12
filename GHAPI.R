@@ -57,6 +57,8 @@ myFollowers = fromJSON("https://api.github.com/users/healys10/followers")
 myFollowers$login  #user names of followers
 length = length(myFollowers$login)
 length #Number of followers
+myFollowers$type
+myFollowers$followers_url
 
 #repos
 repos <- fromJSON("https://api.github.com/users/healys10/repos")
@@ -64,3 +66,20 @@ repos$name #names your public repositories
 repos$created_at # when repos were created
 ass1 <- fromJSON("https://api.github.com/repos/healys10/ass1/commits")
 ass1$commit$message #shows commit messages
+repos$language #Languages of my repositories 
+myLangs = repos$language
+df_uniq = unique(myLangs)
+length(df_uniq)
+aggregate(data.frame(count = myLanguages), list(value =myLanguages), length) #Number of repositories with each language
+
+
+#following
+following = fromJSON("https://api.github.com/users/healys10/following") 
+following$login #Details of the people I follow 
+noFollowing = length(following$login)
+noFollowing
+following$type
+following$following_url
+
+
+
