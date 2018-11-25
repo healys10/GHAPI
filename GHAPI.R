@@ -85,8 +85,8 @@ following$following_url
 #I can look at the info of other developers by changing the user name in
 #the links above, and specifiying what it is that I want to view.
 
-emmalouiser <- fromJSON("https://api.github.com/users/emmalouiser/following")
-emmalouiser$login
+toconno5 <- fromJSON("https://api.github.com/users/toconno5/following")
+toconno5$login
 
 #Instead of viewing this information in a dataframe, i can convert it back to a
 #JSon and study it this way, as it is viewed in a browser.
@@ -97,7 +97,32 @@ myDataJSon
 #This gives me information as to the type of data available to me
 #and which URLs i can make use of.
 
-#This is the end of part 1 of the assignment.
+#Using functions makes it easier to get the information from another user for example
+getFollowers <- function(username)
+{
+  URL <- paste("https://api.github.com/users/", username , "/followers", sep="")
+  followers = fromJSON(URL)
+  return (followers$login)
+}
+#We can now get the info without changing any code
+getFollowers("cassidke")
+#Functions like the one above can be called in the console so that changing code is not necessary to get info on different users.
+#Functions for repositories and followers are below.
 
-#This is the beginning of part 2 of the assignment.
+getFollowing <- function(username)
+{
+  URL <- paste("https://api.github.com/users/", username , "/following", sep="")
+  followers = fromJSON(URL)
+  return (followers$login)
+}
+
+getRepos <- function(username)
+{
+  URL <- paste("https://api.github.com/users/", username , "/repos", sep="")
+  repos = fromJSON(URL) 
+  return (repos$name)
+}
+ 
+
+
 
