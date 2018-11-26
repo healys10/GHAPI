@@ -1,17 +1,17 @@
-#install.packages("jsonlite")
+install.packages("jsonlite")
 library(jsonlite)
-#install.packages("httpuv")
+install.packages("httpuv")
 library(httpuv)
-#install.packages("httr")
+install.packages("httr")
 library(httr)
-#install.packages("devtools")
+install.packages("devtools")
 library(devtools)
 require(devtools)
 library(plotly)
 require(plotly)
 install.packages("igraph")
 library(igraph)
- 
+
 
 # Can be github, linkedin etc depending on application
 oauth_endpoints("github")
@@ -78,7 +78,7 @@ repos$language #Languages of my repositories
 myLangs = repos$language
 df_uniq = unique(myLangs)
 length(df_uniq)
-aggregate(data.frame(count = myLanguages), list(value =myLanguages), length) #Number of repositories with each language
+aggregate(data.frame(count = myLangs), list(value =myLangs), length) #Number of repositories with each language
 
 
 #following
@@ -130,7 +130,10 @@ getRepos <- function(username)
   repos = fromJSON(URL) 
   return (repos$name)
 }
- 
+
+
+
+
 
 
 #Using user 'phadej''s data for the following section
@@ -149,6 +152,65 @@ usersDB = data.frame(
   repos = integer(),
   dateCreated = integer()
 )
+
+
+for(i in 1:length(user_ids))
+{
+  #Retrieve a list of individual users 
+  followingURL = paste("https://api.github.com/users/", user_ids[i], "/following", sep = "")
+  followingRequest = GET(followingURL, gtoken)
+  followingContent = content(followingRequest)
+  
+  #Ignore if they have no followers
+  if(length(followingContent) == 0)
+  {
+    next
+  }
+  
+  followingDF = jsonlite::fromJSON(jsonlite::toJSON(followingContent))
+  followingLogin = followingDF$login
+  
+  #Loop through 'following' users
+  for (j in 1:length(followingLogin))
+  {
+    #Check that the user is not already in the list of users
+    if (is.element(followingLogin[j], users) == FALSE)
+    {
+      #Add user to list of users
+      users[length(users) + 1] = followingLogin[j]
+      
+      #Retrieve data on each user
+      followingUrl2 = paste("https://api.github.com/users/", followingLogin[j], sep = "")
+      following2 = GET(followingUrl2, gtoken)
+      followingContent2 = content(following2)
+      followingDF2 = jsonlite::fromJSON(jsonlite::toJSON(followingContent2))
+      
+      #Retrieve each users following
+      followingNumber = followingDF2$following
+      
+      #Retrieve each users followers
+      followersNumber = followingDF2$followers
+      
+      #Retrieve each users number of repositories
+      reposNumber = followingDF2$public_repos
+      
+      #Retrieve year which each user joined Github
+      yearCreated = substr(followingDF2$created_at, start = 1, stop = 4)
+      
+      #Add users data to a new row in dataframe
+      usersDB[nrow(usersDB) + 1, ] = c(followingLogin[j], followingNumber, followersNumber, reposNumber, yearCreated)
+      
+    }
+    next
+  }
+  #Stop when there are more than 400 users
+  if(length(users) > 400)
+  {
+    break
+  }
+  next
+}
+
 
 
 
