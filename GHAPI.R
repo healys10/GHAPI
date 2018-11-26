@@ -4,13 +4,12 @@ install.packages("httpuv")
 library(httpuv)
 install.packages("httr")
 library(httr)
-install.packages("devtools")
-library(devtools)
+install.packages("rlang")
 require(devtools)
+install.packages("plotly")
 library(plotly)
 require(plotly)
-install.packages("igraph")
-library(igraph)
+
 
 
 # Can be github, linkedin etc depending on application
@@ -210,6 +209,21 @@ for(i in 1:length(user_ids))
   }
   next
 }
+
+
+Sys.setenv("plotly_username"="healys10")
+Sys.setenv("plotly_api_key"="Vgft5JBZ088leAAcrbeE")
+
+plot1 = plot_ly(data = usersDB, x = ~repos, y = ~followers, 
+                text = ~paste("Followers: ", followers, "<br>Repositories: ", 
+                              repos, "<br>Date Created:", dateCreated), color = ~dateCreated)
+plot1
+
+#Upload the plot to Plotly
+Sys.setenv("plotly_username"="healys10")
+Sys.setenv("plotly_api_key"="Vgft5JBZ088leAAcrbeE")
+api_create(plot1, filename = "Followers and Repos by Date")
+#PLOTLY LINK: https://plot.ly/~healys10/1
 
 
 
