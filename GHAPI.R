@@ -4,6 +4,14 @@ library(jsonlite)
 library(httpuv)
 #install.packages("httr")
 library(httr)
+#install.packages("devtools")
+library(devtools)
+require(devtools)
+library(plotly)
+require(plotly)
+install.packages("igraph")
+library(igraph)
+ 
 
 # Can be github, linkedin etc depending on application
 oauth_endpoints("github")
@@ -123,6 +131,27 @@ getRepos <- function(username)
   return (repos$name)
 }
  
+
+
+#Using user 'phadej''s data for the following section
+data = GET("https://api.github.com/users/phadej/followers?per_page=100;",gtoken)
+extract = content(data)
+githubDB = jsonlite::fromJSON(jsonlite::toJSON(extract))
+githubDB$login
+id=githubDB$login
+user_ids = c(id)
+#empty vector and data frame
+users = c()
+usersDB = data.frame(
+  username = integer(),
+  following = integer(),
+  followers = integer(),
+  repos = integer(),
+  dateCreated = integer()
+)
+
+
+
 
 
 
