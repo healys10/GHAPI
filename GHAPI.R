@@ -294,6 +294,18 @@ test
 # b <- followersNames$login[6] as she is number 6 on my followers list.
 
 
+numOfFollowers <- c() #going to look at number of followers of my followers
+namesOfFollowers <- c()
+for (i in 1:length(followersNames$login)) {
+  followers <- followersNames$login[i] 
+  jsonLink <- sprintf("%s%s%s", a, followers, c) 
+  followData <- fromJSON(jsonLink) 
+  numOfFollowers[i] = length(followData$login) 
+  namesOfFollowers[i] = followers 
+  
+}
+numOfFollowers
+namesOfFollowers
 
 
 
