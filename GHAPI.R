@@ -7,11 +7,21 @@ library(httpuv)
 #install.packages("httr")
 library(httr)
 #install.packages("rlang")
-#install.packages("devtools")
+install.packages("devtools")
 require(devtools)
+library(devtools)
+
+install_github('ramnathv/rCharts')
+
+library(rCharts)
+
+
+
+
 install.packages("plotly")
 library(plotly)
 require(plotly)
+
 
 
 
@@ -63,6 +73,7 @@ myData$public_gists
 myData$public_repos
 
 
+
 #followers
 myFollowers = fromJSON("https://api.github.com/users/healys10/followers")
 myFollowers$login  #user names of followers
@@ -70,6 +81,7 @@ length = length(myFollowers$login)
 length #Number of followers
 myFollowers$type
 myFollowers$followers_url
+
 
 #repos
 repos <- fromJSON("https://api.github.com/users/healys10/repos")
@@ -91,6 +103,7 @@ noFollowing = length(following$login)
 noFollowing
 following$type
 following$following_url
+
 
 
 #I can look at the info of other developers by changing the user name in
@@ -254,6 +267,32 @@ Sys.setenv("plotly_username"="healys10")
 Sys.setenv("plotly_api_key"="Vgft5JBZ088leAAcrbeE")
 api_create(plot2, filename = "Followers vs Following")
 #PLOTLY LINK: https://plot.ly/~healys10/3
+
+
+
+
+#Looking at data from my own followers now
+
+
+followersNames <- fromJSON("https://api.github.com/users/healys10/followers")
+followersNames$login #User names of my followers as seen before
+
+
+
+
+a <- "https://api.github.com/users/"
+b <- followersNames$login[5]
+b
+c <- "/followers"
+
+test <- sprintf("%s%s%s", a,b,c) #combines, b and c into one string 
+test                              
+
+
+#kennyc11's followers are now in test. 
+#To get emmalouiser's followers link, change to:
+# b <- followersNames$login[6] as she is number 6 on my followers list.
+
 
 
 
