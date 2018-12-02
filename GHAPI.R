@@ -1,13 +1,13 @@
-install.packages("jsonlite")
+#install.packages("jsonlite")
 require(jsonlite)
 library(jsonlite)
 
-install.packages("httpuv")
+#install.packages("httpuv")
 library(httpuv)
-install.packages("httr")
+#install.packages("httr")
 library(httr)
-install.packages("rlang")
-install.packages("devtools")
+#install.packages("rlang")
+#install.packages("devtools")
 require(devtools)
 install.packages("plotly")
 library(plotly)
@@ -217,6 +217,20 @@ for(i in 1:length(user_ids))
 Sys.setenv("plotly_username"="healys10")
 Sys.setenv("plotly_api_key"="Vgft5JBZ088leAAcrbeE")
 
+
+plot = plot_ly(data = usersDB, x = ~repos, y = ~followers, 
+                text = ~paste("Followers: ", followers, "<br>Repositories: ", 
+                              repos
+                ))
+plot
+#Upload the plot to Plotly
+Sys.setenv("plotly_username"="healys10")
+Sys.setenv("plotly_api_key"="Vgft5JBZ088leAAcrbeE")
+api_create(plot, filename = "Followers and Repos")
+#PLOTLY LINK: https://plot.ly/~healys10/5
+
+
+
 plot1 = plot_ly(data = usersDB, x = ~repos, y = ~followers, 
                 text = ~paste("Followers: ", followers, "<br>Repositories: ", 
                               repos, "<br>Date Created:", dateCreated), color = ~dateCreated)
@@ -238,11 +252,7 @@ plot2
 Sys.setenv("plotly_username"="healys10")
 Sys.setenv("plotly_api_key"="Vgft5JBZ088leAAcrbeE")
 api_create(plot2, filename = "Followers vs Following")
-#PLOTLY LINK: https://plot.ly/~healys10/2
-
-
-
-
+#PLOTLY LINK: https://plot.ly/~healys10/3
 
 
 
