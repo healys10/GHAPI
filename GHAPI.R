@@ -306,6 +306,18 @@ for (i in 1:length(followersNames$login)) {
 }
 numOfFollowers
 namesOfFollowers
+toPlot <- data.frame(numOfFollowers, namesOfFollowers) 
+
+toPlot$namesOfFollowers
+toPlot$numOfFollowers
+
+
+
+plot4 <- nPlot(numOfFollowers ~ namesOfFollowers, data = toPlot, type = "multiBarChart")
+plot4 #followers my followers have as a bar chart
+
+plot4$save("plot4.html") 
+
 
 
 
