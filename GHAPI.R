@@ -256,20 +256,7 @@ api_create(plot2, filename = "Followers vs Following")
 #PLOTLY LINK: https://plot.ly/~healys10/3
 
 
-follow.DF = data.frame(usersDB$followers)
 
-plot3 = plot_ly(follow.DF, type="choropleth",
-                locations=c("UK","Saudi Arabia","Kazakhstan","Iran", "Greenland","USA", "Italy", "Ireland","Norway","Chile","Egypt","Morocco","South Africa", "China", "Germany", "Australia", "Austria", "The Netherlands", "Switzerland", "Brazil", "Russia", "Mexico", "Thailand", "Canada", "India", "Ukraine", "Colombia"),
-                locationmode='country names',
-                colorscale='Viridis',
-                z=c(10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,600,1000,1050,1200,1800,1400,1100,1250,1300))
-
-plot3
-#Upload the plot to Plotly
-Sys.setenv("plotly_username"="healys10")
-Sys.setenv("plotly_api_key"="Vgft5JBZ088leAAcrbeE")
-api_create(plot3, filename = "Followers Heatmap")
-#PLOTLY LINK: https://plot.ly/~healys10/7/#/
 
 
 
